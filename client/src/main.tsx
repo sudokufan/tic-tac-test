@@ -9,6 +9,46 @@ export const Main = () => {
   ]);
   const [turn, setTurn] = useState<XorO>("X");
 
+  const buildWinningLines = (
+    boardSize: number,
+  ): Array<Array<[number, number]>> => {
+    const lines: Array<Array<[number, number]>> = [];
+
+    // Horizontal rows
+    for (let rowIndex = 0; rowIndex < boardSize; rowIndex++) {
+      const row: Array<[number, number]> = [];
+      for (let colIndex = 0; colIndex < boardSize; colIndex++) {
+        row.push([rowIndex, colIndex]);
+      }
+      lines.push(row);
+    }
+
+    // Vertical columns
+    for (let colIndex = 0; colIndex < boardSize; colIndex++) {
+      const col: Array<[number, number]> = [];
+      for (let rowIndex = 0; rowIndex < boardSize; rowIndex++) {
+        col.push([rowIndex, colIndex]);
+      }
+      lines.push(col);
+    }
+
+    // Top-left → bottom-right diagonal
+    const ltrDiagonal: Array<[number, number]> = [];
+    for (let i = 0; i < boardSize; i++) {
+      ltrDiagonal.push([i, i]);
+    }
+    lines.push(ltrDiagonal);
+
+    // Top-right → bottom-left diagonal
+    const rtlDiagonal: Array<[number, number]> = [];
+    for (let i = 0; i < boardSize; i++) {
+      rtlDiagonal.push([i, boardSize - 1 - i]);
+    }
+    lines.push(rtlDiagonal);
+
+    return lines;
+  };
+
   const handleClick = (cellRow: number, cellCol: number) => {
     const updatedBoard = board.map((row, rowIndex) =>
       row.map((cellValue, colIndex) =>
@@ -25,15 +65,15 @@ export const Main = () => {
       <div className="flex w-2/5 max-w-screen-sm flex-col gap-1 sm:gap-2 md:gap-3">
         {board.map((row, rowIndex) => (
           <div className="flex w-full gap-1 sm:gap-2 md:gap-3">
-            {row.map((column, colIndex) => {
+            {row.map((cell, cellIndex) => {
               return (
                 <div
                   onClick={
-                    !column ? () => handleClick(rowIndex, colIndex) : undefined
+                    !cell ? () => handleClick(rowIndex, cellIndex) : undefined
                   }
-                  className={`${!column && "hover:bg-green-light cursor-pointer"} flex aspect-square flex-1 items-center justify-center border-2 border-gray-400 text-3xl font-bold md:text-5xl lg:text-8xl`}
+                  className={`${!cell && "hover:bg-green-hover cursor-pointer"} ${cell === "X" ? "text-green-light" : "text-green-mid"} flex aspect-square flex-1 items-center justify-center border-2 border-gray-400 text-3xl font-bold md:text-5xl lg:text-8xl`}
                 >
-                  {column}
+                  {cell}
                 </div>
               );
             })}
