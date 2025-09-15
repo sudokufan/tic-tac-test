@@ -60,9 +60,31 @@ export const Main = () => {
   };
 
   return (
-    <div className="bg-green flex h-screen flex-col items-center gap-10 pt-10 text-white">
-      <h1 className="font-spruce text-2xl font-bold">Tic Tac Toe</h1>
-      <div className="flex w-2/5 max-w-screen-sm flex-col gap-1 sm:gap-2 md:gap-3">
+    <div className="bg-green font-spruce flex h-screen flex-col items-center gap-10 pt-10 text-white">
+      <h1 className="text-2xl font-bold">Tic Tac Toe</h1>
+
+      <div className="flex flex-col gap-4">
+        <div className="text-2xl">
+          {conclusion &&
+            (conclusion === "Draw" ? "It’s a draw!" : `${conclusion} wins!`)}
+        </div>
+        <button
+          onClick={() => {
+            setBoard(
+              Array.from({ length: boardSize }, () =>
+                Array.from({ length: boardSize }, () => undefined),
+              ),
+            );
+            setTurn("X");
+            setConclusion(undefined);
+          }}
+          className="bg-green-light hover:bg-green-mid rounded px-3 py-1 text-black hover:text-white"
+        >
+          Reset
+        </button>
+      </div>
+
+      <div className="flex w-[40%] max-w-screen-sm flex-col gap-1 sm:gap-2 md:w-[30%] md:gap-3">
         {board.map((row, rowIndex) => (
           <div className="flex w-full gap-1 sm:gap-2 md:gap-3">
             {row.map((cell, cellIndex) => {
@@ -73,7 +95,7 @@ export const Main = () => {
                       ? () => handleClick(rowIndex, cellIndex)
                       : undefined
                   }
-                  className={`${!cell && "hover:bg-green-hover cursor-pointer"} ${cell === "X" ? "text-green-light" : "text-green-mid"} flex aspect-square flex-1 items-center justify-center border-2 border-gray-400 text-3xl font-bold md:text-5xl lg:text-8xl`}
+                  className={`${!cell && !conclusion && "hover:bg-green-hover cursor-pointer"} ${cell === "X" ? "text-green-light" : "text-green-mid"} flex aspect-square flex-1 items-center justify-center border-2 border-gray-400 text-3xl font-bold md:text-5xl lg:text-8xl`}
                 >
                   {cell}
                 </div>
