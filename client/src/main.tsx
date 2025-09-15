@@ -20,8 +20,8 @@ export const Main = () => {
   };
 
   return (
-    <div className="flex flex-col mt-10 items-center gap-10">
-      <h1 className="font-bold text-2xl">Tic Tac Toe</h1>
+    <div className="flex flex-col pt-10 items-center h-screen gap-10 bg-green text-white">
+      <h1 className="font-bold font-spruce text-2xl">Tic Tac Toe</h1>
       <div className="flex flex-col gap-1 sm:gap-2 md:gap-3 w-2/5 max-w-screen-sm">
         {board.map((row, rowIndex) => (
           <div className="flex gap-1 sm:gap-2 md:gap-3 w-full">
@@ -31,7 +31,7 @@ export const Main = () => {
                   onClick={
                     !column ? () => handleClick(rowIndex, colIndex) : undefined
                   }
-                  className={`${!column && "cursor-pointer hover:bg-gray-100"} border-2 border-gray-900 flex-1 aspect-square items-center justify-center text-2xl font-bold flex
+                  className={`${!column && "cursor-pointer hover:bg-green-light"} border-2 border-gray-400 flex-1 aspect-square items-center justify-center text-2xl font-bold flex
                   `}
                 >
                   {column}
