@@ -76,7 +76,10 @@ export const Main = () => {
                   }
                   className={`${!cell && !conclusion && "hover:bg-green-hover cursor-pointer"} ${
                     cell === "X" ? "text-green-light" : "text-green-mid"
-                  } flex aspect-square min-h-0 min-w-0 flex-1 items-center justify-center overflow-hidden border-2 border-gray-400 text-3xl font-bold leading-none md:text-5xl lg:text-8xl`}
+                  } flex aspect-square min-h-0 min-w-0 flex-1 items-center justify-center overflow-hidden border-2 border-gray-400 font-bold leading-none`}
+                  style={{
+                    fontSize: `calc((min(40vw, 640px)) / ${boardSize} * 0.6)`,
+                  }}
                 >
                   {cell}
                 </div>
